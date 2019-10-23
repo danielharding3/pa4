@@ -1,0 +1,17 @@
+
+My code implements a two dimenional array that acts as the cache; the cache includes a valid bit to tell whether or not the cache
+has previously been visited, a tag to identify the block of data that is being targeted, and an integer that acts almost as a counter. The 
+purpose of this int is to help identify which data block was least recently used, so that the replacement algorithm can remove the least
+recently used block, which is what the instructions of the assignment informed us to do.
+
+On a cache hit, meaning when the tags are equal, the correct parameter (hits, as well as reads or writes, depending on the operation) is incrememnted,
+and the count is incremented as well. The count is used to determine which block of data is the least recently used. On a miss, misses is incremented,
+as well as the correct parameter, and the lru replacement algorithm is executed.
+
+From what I've observed, the prefetcher changed the number of cache hits, because the purpose of the prefetcher is to increase the number of hits
+while reducing the nunmber of misses. In fact, the prefetcher is not activated on a cache miss. The prefetcher is coded to only activate on cache misses, 
+and so the misses are incremented. However, since the prefetcher is activated with the misses, it reduces the amount of future misses, which is why the number of
+misses with the prefetcher is much less than the number of misses without it. There are more hits than misses when the prefetcher is activated, since
+the prefetcher's purpose is to increase hits and decrease misses. The number of reads and writes do not change dependent on the prefetcher, since both
+are incrememnted accordingly, whether or not the prefetcher is activated. The prefetcher's purpose is fulfilled since, on a miss, it not only brings up its
+intended block from memory but also the one adjacent to it, which raises the number of hits and lowers the number of misses.
